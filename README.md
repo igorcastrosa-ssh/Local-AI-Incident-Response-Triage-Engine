@@ -17,7 +17,7 @@ graph LR
     E -->|JSON Analysis| D
     D -->|Append Report| F[ai_triage.log]
 
-
+```
 
 
 

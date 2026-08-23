@@ -45,11 +45,3 @@ Low-Latency SOC Enrichment: Leverages lightweight local LLMs (llama3 / mistral) 
 Standard-Library Python: Written without external Python library dependencies (requests, etc.) for seamless execution under unprivileged system users (wazuh).
 
 
-
-├── config/
-│   └── ossec.conf               # Integration daemon configuration block
-├── rules/
-│   └── local_rules.xml          # Sysmon Event 15 custom detection rule
-├── scripts/
-│   └── custom-ai-triage.py      # Main triage script (placed in /var/ossec/integrations/)
-└── README.md

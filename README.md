@@ -36,7 +36,8 @@ Local LLM Inference: The script parses alert context and queries a local Ollama 
 Triage Logging: Incident response analysis streams directly to /var/ossec/logs/ai_triage.log
 
 
-🚀 Key Features
+Key Features:
+
 Zero-Cloud Data Privacy: Operates 100% on-premise to ensure sensitive corporate hostnames, file paths, and logs never leave the internal network.
 
 Low-Latency SOC Enrichment: Leverages lightweight local LLMs (llama3 / mistral) to evaluate threat context within seconds.

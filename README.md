@@ -30,7 +30,6 @@ The test simulates potential insider data-hiding behavior by creating an **NTFS 
 Sysmon records the activity as **Event ID 15**, which is detected by custom Wazuh rule `100051`.
 
 - **Wazuh Rule:** `100051`
-- **Alert Level:** `10`
 - **Sysmon Event:** `15`
 - **MITRE ATT&CK:** `T1564.004 — NTFS File Attributes`
 

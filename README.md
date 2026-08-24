@@ -1,49 +1,73 @@
-# Local AI Incident Response Triage Engine (Wazuh + Ollama)
+# AI-Powered Insider Threat & DLP Incident Response Pipeline
 
-An event-driven, privacy-preserving SIEM triage engine that automatically enriches high-risk endpoint security alerts using a locally hosted LLM (Ollama). 
+A security monitoring project that extends my Active Directory + Wazuh home lab with automated AI-assisted incident triage.
 
-This project bridges the gap between threat detection and automated response by converting raw JSON alert payloads into concise, actionable risk summaries for SOC analysts without exposing sensitive telemetry to external cloud APIs.
+The pipeline detects suspicious endpoint activity using **Sysmon and Wazuh**, maps the detection to **MITRE ATT&CK**, and automatically sends the alert to a locally hosted **Llama 3.2:1b model through Ollama** for analysis.
 
----
+## How It Works
 
-## 🏗️ Architecture Flow
-
-```mermaid
-graph LR
-    A[Client01: Sysmon Event 15] -->|Log Event| B[Wazuh Manager]
-    B -->|Rule 100051 Trigger| C[wazuh-integratord]
-    C -->|Executes Script| D[custom-ai-triage.py]
-    D -->|Local API Call| E[Ollama LLM Engine]
-    E -->|JSON Analysis| D
-    D -->|Append Report| F[ai_triage.log]
-
+```text
+CLIENT01
+   ↓
+Sysmon
+   ↓
+Wazuh Agent
+   ↓
+Custom Detection Rule
+   ↓
+Python AI Triage
+   ↓
+Ollama / Llama 3.2:1b
+   ↓
+Severity + Assessment + Next Step
 ```
 
 
+## Detection
+
+The test simulates potential insider data-hiding behavior by creating an **NTFS Alternate Data Stream (ADS)** using PowerShell.
+
+Sysmon records the activity as **Event ID 15**, which is detected by custom Wazuh rule `100051`.
+
+- **Wazuh Rule:** `100051`
+- **Alert Level:** `10`
+- **Sysmon Event:** `15`
+- **MITRE ATT&CK:** `T1564.004 — NTFS File Attributes`
+
+<img width="726" height="672" alt="Wazuh-Rule15-Detection" src="https://github.com/user-attachments/assets/ead1473f-dfb9-4811-9f2b-b5e54213a189" />
 
 
+## AI-Assisted Triage
+
+When rule `100051` fires, Wazuh automatically launches `custom-ai-triage.py`.
+
+The script extracts the event context and sends it to a locally hosted **Llama 3.2:1b** model. The model returns:
+
+```text
+Severity
+Assessment
+Recommended Next Step
+```
+
+<img width="1498" height="308" alt="AI-Analysis-Event15-Test" src="https://github.com/user-attachments/assets/5aa097e9-215b-486b-9d47-33907fd17990" />
 
 
+## Technologies
 
-Endpoint Event: Sysmon captures Event 15 (Alternate Data Stream creation) on a target host.
+**Wazuh • Sysmon • Active Directory • Python • Ollama • Llama 3.2 • MITRE ATT&CK • VMware • Ubuntu**
 
-Rule Matching: Wazuh Manager processes the log and triggers custom Rule 100051.
+## Repository Files
 
-Automated Dispatch: wazuh-integratord calls the custom Python integration script.
+- `custom-ai-triage.py` — automated Wazuh → Ollama integration
+- `local_rules.xml` — custom detection rules
+- `ossec-conf.png` — Wazuh integration configuration
 
-Local LLM Inference: The script parses alert context and queries a local Ollama model via REST API (http://localhost:11434/api/generate).
+## Result
 
-Triage Logging: Incident response analysis streams directly to /var/ossec/logs/ai_triage.log
+Successfully built and tested the following automated workflow:
 
+**Endpoint Activity → Sysmon → Wazuh Detection → Custom Rule → Local AI Triage → Recommended Investigation**
 
-Key Features:
+This project gave me hands-on experience with **SIEM detection engineering, endpoint telemetry, Python security automation, MITRE ATT&CK mapping, and AI-assisted incident response**.
 
-Zero-Cloud Data Privacy: Operates 100% on-premise to ensure sensitive corporate hostnames, file paths, and logs never leave the internal network.
-
-Low-Latency SOC Enrichment: Leverages lightweight local LLMs (llama3 / mistral) to evaluate threat context within seconds.
-
-Standard-Library Python: Written without external Python library dependencies (requests, etc.) for seamless execution under unprivileged system users (wazuh).
-
-AI Analysis:
-<img width="1498" height="308" alt="AI-Analysis-Event15-Test" src="https://github.com/user-attachments/assets/02d3ab18-9078-4e03-90f6-25cbfe1aacda" />
-
+> All activity was performed in an isolated, authorized cybersecurity lab environment.

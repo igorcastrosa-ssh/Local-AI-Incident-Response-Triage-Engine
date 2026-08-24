@@ -1,0 +1,16 @@
+#Rule used (as example) for detection Sysmon 15
+
+
+<group name="windows,sysmon,insider_threat,dlp,">
+  <!-- Rule 1: Alternate Data Stream (ADS) Creation -->
+  <rule id="100051" level="10">
+    <if_group>sysmon_event_15</if_group>
+    <description>
+      Sysmon Event 15 - Alternate Data Stream Created
+    </description>
+    <mitre>
+      <id>T1564.004</id>
+    </mitre>
+  </rule>
+
+</group>

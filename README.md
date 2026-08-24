@@ -44,4 +44,6 @@ Low-Latency SOC Enrichment: Leverages lightweight local LLMs (llama3 / mistral) 
 
 Standard-Library Python: Written without external Python library dependencies (requests, etc.) for seamless execution under unprivileged system users (wazuh).
 
+AI Analysis:
+<img width="1498" height="308" alt="AI-Analysis-Event15-Test" src="https://github.com/user-attachments/assets/02d3ab18-9078-4e03-90f6-25cbfe1aacda" />
 

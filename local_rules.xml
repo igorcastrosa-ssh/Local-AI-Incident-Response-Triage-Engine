@@ -1,5 +1,6 @@
-#Rule used (as example) for detection Sysmon 15
+#Rule used (as example) for detection
 
+Sysmon Event ID: 15
 
 <group name="windows,sysmon,insider_threat,dlp,">
   <!-- Rule 1: Alternate Data Stream (ADS) Creation -->
